@@ -1,1 +1,2 @@
-export * from "./useFuzzyTrie";
+export * from "./useFuzzyFilter";
+export * from "./useScrollTracker";
