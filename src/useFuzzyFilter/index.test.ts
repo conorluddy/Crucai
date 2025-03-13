@@ -1,4 +1,4 @@
-import { FuzzyTrie } from "./FuzzyTrie";
+import { FuzzyTrie } from "./FuzzyTrieClass";
 
 describe("FuzzyTrie", () => {
   let trie: FuzzyTrie<string>;

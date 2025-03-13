@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect, useMemo } from "react";
-import { FuzzyTrie } from "./FuzzyTrie";
+import { FuzzyTrie } from "./FuzzyTrieClass";
 
 /**
  * A React hook that implements a fuzzy search trie for efficient searching and suggestions.
@@ -17,7 +17,7 @@ import { FuzzyTrie } from "./FuzzyTrie";
  *   suggestions: T[]
  * }} An object containing the search function and current suggestions.
  */
-function useFuzzyTrie<T>({
+function useFuzzyFilter<T>({
   items = [],
   getSearchString,
   debounceMs = 150,
@@ -65,7 +65,7 @@ function debounce<T extends (...args: any[]) => any>(func: T, wait: number): T {
   } as T;
 }
 
-export { useFuzzyTrie };
+export { useFuzzyFilter };
 
 interface UseTrieOptions<T> {
   items?: T[];
