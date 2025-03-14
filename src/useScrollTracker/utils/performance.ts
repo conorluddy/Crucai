@@ -3,10 +3,11 @@
  * @param func Function to debounce
  * @param wait Wait time in milliseconds
  */
-export function debounce<T extends (...args: any[]) => any>(func: T, wait: number): T {
+export function debounce<T extends (...args: unknown[]) => unknown>(func: T, wait: number): T {
   let timeout: ReturnType<typeof setTimeout> | null = null;
   
-  return function (this: any, ...args: Parameters<T>) {
+  return function(this: unknown, ...args: Parameters<T>) {
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
     const context = this;
     if (timeout) clearTimeout(timeout);
     
@@ -21,12 +22,13 @@ export function debounce<T extends (...args: any[]) => any>(func: T, wait: numbe
  * @param func Function to throttle
  * @param limit Time limit in milliseconds
  */
-export function throttle<T extends (...args: any[]) => any>(func: T, limit: number): T {
+export function throttle<T extends (...args: unknown[]) => unknown>(func: T, limit: number): T {
   let inThrottle = false;
   let lastFunc: ReturnType<typeof setTimeout>;
   let lastRan: number;
   
-  return function (this: any, ...args: Parameters<T>) {
+  return function(this: unknown, ...args: Parameters<T>) {
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
     const context = this;
     
     if (!inThrottle) {
@@ -53,23 +55,25 @@ export function throttle<T extends (...args: any[]) => any>(func: T, limit: numb
  * Create a request animation frame throttled version of a function
  * @param callback Function to throttle using requestAnimationFrame
  */
-export function rafThrottle<T extends (...args: any[]) => any>(callback: T): T {
+export function rafThrottle<T extends (...args: unknown[]) => unknown>(callback: T): T {
   let requestId: number | null = null;
   let lastArgs: Parameters<T>;
   
-  const later = (context: any) => () => {
+  const later = (context: unknown) => () => {
     requestId = null;
     callback.apply(context, lastArgs);
   };
   
-  const throttled = function (this: any, ...args: Parameters<T>) {
+  // Create the throttled function
+  const throttled = function(this: unknown, ...args: Parameters<T>) {
     lastArgs = args;
     if (requestId === null) {
       requestId = requestAnimationFrame(later(this));
     }
-  } as T;
+  } as unknown as T & { cancel: () => void };
   
-  (throttled as any).cancel = () => {
+  // Add cancel method
+  throttled.cancel = () => {
     if (requestId !== null) {
       cancelAnimationFrame(requestId);
       requestId = null;

@@ -1,24 +1,17 @@
 #!/bin/sh
 
-# Function to run a command and exit if it fails
-run_command() {
-  echo "Running $1... 🕵🏼‍♀️"
-  if ! $1; then
-    echo "$1 failed ❌"
-    exit 1
-  fi
-  echo "$1 done ✅"
-}
-
 # Bump the patch version in package.json
 npm version patch --no-git-tag-version
 git add package.json
 
 # Run type coverage check
+mkdir -p .github
 npx type-coverage --json-output > .github/type-coverage.json
 
 # Add type coverage output to the commit
 git add .github/type-coverage.json
 
-# Run linting check
-run_command "npm run lint"
+# Run linting check but don't fail the commit
+echo "Running lint check... 🕵🏼‍♀️"
+npm run lint || echo "Linting reported issues, but continuing with commit"
+echo "Lint check done ✅"

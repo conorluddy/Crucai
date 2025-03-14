@@ -213,7 +213,7 @@ export function calculateEntryMetrics(
   previousEntry: EntryMetrics,
   currentTime: number
 ): EntryMetrics {
-  let result = { ...previousEntry };
+  const result = { ...previousEntry };
   
   // Handle entry
   if (isInViewport && !wasInViewport) {

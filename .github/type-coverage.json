@@ -1,8 +1,9 @@
 {
   "succeeded": true,
+  "atLeast": 95,
   "atLeastFailed": false,
-  "correctCount": 1362,
-  "percent": 98.55,
-  "percentString": "98.55",
-  "totalCount": 1382
+  "correctCount": 1364,
+  "percent": 99.05,
+  "percentString": "99.05",
+  "totalCount": 1377
 }

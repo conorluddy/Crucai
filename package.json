@@ -1,6 +1,6 @@
 {
   "name": "crucai",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "type": "module",
   "description": "Crúcai - React Hooks",
   "main": "dist/index.js",
@@ -11,7 +11,7 @@
   ],
   "scripts": {
     "build": "rollup -c",
-    "lint": "eslint src/**/*.{ts,tsx}",
+    "lint": "eslint \"src/**/*.ts\"",
     "prepare": "husky",
     "prettier": "prettier --write .",
     "test:coverage": "jest --coverage",

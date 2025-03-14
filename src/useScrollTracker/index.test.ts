@@ -10,13 +10,34 @@ import {
   calculateEntryMetrics
 } from './utils/calculations';
 
+// Define the global object type
+declare global {
+  interface Window {
+    IntersectionObserver: typeof IntersectionObserver;
+    ResizeObserver: typeof ResizeObserver;
+  }
+}
+
+// Define the types for our mocks
+type IntersectionObserverMock = jest.Mock<{
+  observe: jest.Mock;
+  unobserve: jest.Mock;
+  disconnect: jest.Mock;
+}>;
+
+type ResizeObserverMock = jest.Mock<{
+  observe: jest.Mock;
+  unobserve: jest.Mock;
+  disconnect: jest.Mock;
+}>;
+
 // Mock intersection observer
-const mockIntersectionObserver = jest.fn();
-(global as any).IntersectionObserver = mockIntersectionObserver;
+const mockIntersectionObserver = jest.fn() as IntersectionObserverMock;
+(global as typeof window).IntersectionObserver = mockIntersectionObserver as unknown as typeof IntersectionObserver;
 
 // Mock resize observer
-const mockResizeObserver = jest.fn();
-(global as any).ResizeObserver = mockResizeObserver;
+const mockResizeObserver = jest.fn() as ResizeObserverMock;
+(global as typeof window).ResizeObserver = mockResizeObserver as unknown as typeof ResizeObserver;
 
 // Mock window properties and methods
 Object.defineProperty(global, 'innerHeight', { value: 800 });
@@ -25,7 +46,7 @@ Object.defineProperty(global, 'innerWidth', { value: 1200 });
 describe('useScrollTracker', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    mockIntersectionObserver.mockImplementation((callback) => {
+    mockIntersectionObserver.mockImplementation(() => {
       return {
         observe: jest.fn(),
         unobserve: jest.fn(),
