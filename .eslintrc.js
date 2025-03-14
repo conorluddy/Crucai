@@ -1,23 +1,24 @@
 export default {
-  parser: '@typescript-eslint/parser',
+  parser: "@typescript-eslint/parser",
   extends: [
-    'plugin:@typescript-eslint/recommended',
-    'plugin:react-hooks/recommended',
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react-hooks/recommended",
   ],
   parserOptions: {
     ecmaVersion: 2020,
-    sourceType: 'module',
+    sourceType: "module",
     ecmaFeatures: {
       jsx: true,
     },
   },
   rules: {
-    '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "react-hooks/exhaustive-deps": "warn",
   },
   settings: {
     react: {
-      version: 'detect',
+      version: "detect",
     },
   },
 };

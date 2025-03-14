@@ -1,11 +1,13 @@
-import { renderHook } from '@testing-library/react-hooks';
+// Use testing-library/react directly instead of the deprecated react-hooks package
+import { renderHook } from '@testing-library/react';
 import { useScrollTracker } from './index';
 import { 
   calculateVisibility, 
   calculateDimensions, 
   calculatePositions,
   calculateThresholds,
-  calculateDynamics
+  calculateDynamics,
+  calculateEntryMetrics
 } from './utils/calculations';
 
 // Mock intersection observer
@@ -40,6 +42,7 @@ describe('useScrollTracker', () => {
   });
 
   it('should initialize with default values', () => {
+    // Updated to use the new renderHook API from @testing-library/react
     const { result } = renderHook(() => useScrollTracker());
     
     expect(result.current.ref).toBeDefined();
@@ -49,6 +52,7 @@ describe('useScrollTracker', () => {
   });
 
   it('should accept options', () => {
+    // Updated to use the new renderHook API from @testing-library/react
     const { result } = renderHook(() => useScrollTracker({
       thresholds: [0, 50, 100],
       rootMargin: '10px',
@@ -224,15 +228,87 @@ describe('Calculation Utils', () => {
       // Acceleration = (500 - 0) / 0.1 = 5000 pixels/second²
       expect(result.acceleration).toBe(5000);
       
-      // Time since last scroll = 100ms
-      // Time since last scroll < 50ms? No, so isScrolling = false
-      // But we're forcing the inertia computation, so it should be 1
-      expect(result.inertia).toBe(1);
+      // Time since last scroll = 100ms which is > 50ms
+      // isScrolling = false, so inertia will use decay formula:
+      // inertia = Math.max(0, previousInertia - inertiaDecayFactor)
+      // where inertiaDecayFactor = Math.min(1, 100 / 300) = 0.33...
+      // since previousInertia is 0, max(0, 0 - 0.33) = 0
+      expect(result.inertia).toBe(0);
       
       // Normalized velocity = min(1, 500/1000) = 0.5
       // Eased value depends on the bezier function
       expect(result.eased).toBeGreaterThan(0);
       expect(result.eased).toBeLessThan(1);
+    });
+  });
+  
+  describe('calculateEntryMetrics', () => {
+    it('should handle element entering viewport from top', () => {
+      const previousEntryMetrics = {
+        from: null,
+        to: null,
+        time: null,
+        duration: 0
+      };
+      
+      const result = calculateEntryMetrics(
+        true, // isInViewport
+        false, // wasInViewport
+        'down', // direction
+        previousEntryMetrics,
+        1000 // time
+      );
+      
+      expect(result.from).toBe('top');
+      expect(result.to).toBe(null);
+      expect(result.time).toBe(1000);
+      expect(result.duration).toBe(0);
+    });
+    
+    it('should handle element staying in viewport', () => {
+      // Use the correct type for from property: 'top' | 'bottom' | null
+      const previousEntryMetrics = {
+        from: 'top' as const, // Use const assertion to specify the literal type
+        to: null,
+        time: 900,
+        duration: 100
+      };
+      
+      const result = calculateEntryMetrics(
+        true, // isInViewport
+        true, // wasInViewport
+        'down', // direction
+        previousEntryMetrics,
+        1000 // time
+      );
+      
+      expect(result.from).toBe('top');
+      expect(result.to).toBe(null);
+      expect(result.time).toBe(900);
+      expect(result.duration).toBe(100); // 1000 - 900
+    });
+    
+    it('should handle element exiting viewport', () => {
+      // Use the correct type for from property: 'top' | 'bottom' | null
+      const previousEntryMetrics = {
+        from: 'top' as const, // Use const assertion to specify the literal type
+        to: null,
+        time: 900,
+        duration: 100
+      };
+      
+      const result = calculateEntryMetrics(
+        false, // isInViewport
+        true, // wasInViewport
+        'down', // direction
+        previousEntryMetrics,
+        1000 // time
+      );
+      
+      expect(result.from).toBe('top');
+      expect(result.to).toBe('bottom'); // Exit in the direction of scroll
+      expect(result.time).toBe(900);
+      expect(result.duration).toBe(0); // Reset duration on exit
     });
   });
 });
