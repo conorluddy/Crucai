@@ -4,6 +4,8 @@
 
 A collection of high-performance, zero-dependency (except for React), React hooks for building responsive and interactive UIs.
 
+This is a Turborepo managed monorepo, with hooks as independent packages published to NPM.
+
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/conorluddy/crucai/ci.yml) [![codecov](https://codecov.io/gh/conorluddy/crucai/branch/main/graph/badge.svg?token=WTHO1C6UL4)](https://codecov.io/gh/conorluddy/crucai) ![Dynamic JSON Badge](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fconorluddy%2Fcrucai%2Fmain%2F.github%2Ftype-coverage.json&query=%24.percentString&suffix=%25&style=flat&logo=typescript&label=TS%20Coverage&color=abff3d)
  ![Last Commit](https://img.shields.io/github/last-commit/conorluddy/crucai) ![Version](https://img.shields.io/github/package-json/v/conorluddy/crucai) 
 
@@ -28,13 +30,22 @@ A collection of high-performance, zero-dependency (except for React), React hook
 
 ## 🚀 Installation
 
+Hooks can be installed individually, or as a full collection.
+
+Install this whole repo
+
 ```bash
 npm install crucai
-# or
-yarn add crucai
-# or
-pnpm add crucai
 ```
+
+Install only specific hook(s)
+
+```bash
+npm install @crucai/use-scroll-tracker
+npm install @crucai/use-fuzzy-filter
+...
+```
+
 
 ## 🔌 Hooks Overview
 
