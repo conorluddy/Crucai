@@ -1,6 +1,6 @@
 {
   "name": "crucai",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "type": "module",
   "description": "Crúcai - React Hooks",
   "main": "dist/index.js",
@@ -59,13 +59,16 @@
     "type-coverage": "^2.29.7",
     "typescript": "^5.3.3"
   },
-  "author": "",
+  "author": "Conor Luddy",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git@github.com:conorluddy/Crucai.git"
+    "url": "git+ssh://git@github.com/conorluddy/Crucai.git"
   },
   "packageManager": "npm@10.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
   "keywords": [
     "react",
     "hooks",

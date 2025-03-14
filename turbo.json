@@ -4,28 +4,22 @@
     "build": {
       "dependsOn": ["^build"]
     },
-    "check-types": {
-      "dependsOn": [],
-      "outputs": []
-    },
+    "check-types": {},
     "dev": {
       "cache": false,
       "persistent": true,
       "dependsOn": []
     },
-    "lint": {
-      "outputs": []
-    },
-    "prettier": {
-      "outputs": []
-    },
+    "lint": {},
+    "prettier": {},
     "test": {
       "outputs": []
     },
-    "test:coverage": {
+    "patch": {
       "outputs": []
     },
-    "test:watch": {
+    "publish": {
+      "dependsOn": ["build", "test"],
       "outputs": []
     }
   }
