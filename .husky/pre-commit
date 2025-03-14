@@ -2,6 +2,7 @@
 
 # Bump the patch version in package.json
 npm version patch --no-git-tag-version
+npm run patch # patches the packages too
 git add package.json
 
 # Run type coverage check
