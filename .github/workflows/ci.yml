@@ -49,6 +49,17 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Set up npm token for all workspaces
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > .npmrc
+          for dir in packages/*; do
+            if [ -d "$dir" ]; then
+              cp .npmrc "$dir/.npmrc"
+            fi
+          done
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
       - name: Publish to npm
         run: npm run publish
         env:
