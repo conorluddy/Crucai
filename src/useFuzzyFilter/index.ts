@@ -54,18 +54,19 @@ function useFuzzyFilter<T>({
   return { search, suggestions };
 }
 
-function debounce<T extends (...args: unknown[]) => unknown>(func: T, wait: number): T {
-  let timeout: ReturnType<typeof setTimeout> | null = null;
-  // Using a regular function to maintain 'this' context
-  return function(this: unknown, ...args: Parameters<T>) {
-    // Store the 'this' context correctly
-    // eslint-disable-next-line @typescript-eslint/no-this-alias
-    const context = this;
-    if (timeout) clearTimeout(timeout);
-    timeout = setTimeout(() => {
-      func.apply(context, args);
-    }, wait);
-  } as T;
+function debounce<T extends unknown[]>(
+  func: (...args: T) => void,
+  delay: number
+): (...args: T) => void {
+  let timer: NodeJS.Timeout | undefined;
+  return (...args: T) => {
+    if (timer) {
+      clearTimeout(timer);
+    }
+    timer = setTimeout(() => {
+      func(...args);
+    }, delay);
+  };
 }
 
 export { useFuzzyFilter };
