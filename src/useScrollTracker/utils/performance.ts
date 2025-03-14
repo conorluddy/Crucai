@@ -64,14 +64,16 @@ export function rafThrottle<T extends (...args: unknown[]) => unknown>(callback:
     callback.apply(context, lastArgs);
   };
   
+  // Create the throttled function
   const throttled = function(this: unknown, ...args: Parameters<T>) {
     lastArgs = args;
     if (requestId === null) {
       requestId = requestAnimationFrame(later(this));
     }
-  } as T;
+  } as unknown as T & { cancel: () => void };
   
-  (throttled as { cancel: () => void }).cancel = () => {
+  // Add cancel method
+  throttled.cancel = () => {
     if (requestId !== null) {
       cancelAnimationFrame(requestId);
       requestId = null;
