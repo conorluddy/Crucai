@@ -1,16 +1,29 @@
 import typescript from "@rollup/plugin-typescript";
+import { defineConfig } from "rollup";
 
-export default {
-  input: "src/index.ts", // Entry point for your hook
+export default defineConfig({
+  input: "src/index.ts",
   output: [
     {
-      dir: "dist",
+      file: "dist/index.js",
+      format: "cjs",
+      sourcemap: true,
+      exports: "named",
+    },
+    {
+      file: "dist/index.mjs",
       format: "esm",
       sourcemap: true,
-      preserveModules: true,
       exports: "named",
     },
   ],
-  plugins: [typescript()],
+  plugins: [
+    typescript({
+      tsconfig: "./tsconfig.json",
+      declaration: true,
+      declarationDir: "dist",
+      rootDir: "src",
+    }),
+  ],
   external: ["react"],
-};
+});
