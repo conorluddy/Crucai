@@ -250,7 +250,7 @@ export function useScrollTracker(
           thresholds: thresholdsMetrics,
           entry: entryMetrics,
         };
-        
+
         // Simple shallow comparison of key values to avoid unnecessary re-renders
         if (
           prevMetrics.visibility.percentage === visibility.percentage &&
@@ -260,7 +260,7 @@ export function useScrollTracker(
         ) {
           return prevMetrics; // Return previous state to prevent re-render
         }
-        
+
         return newMetrics;
       });
 
@@ -336,12 +336,14 @@ export function useScrollTracker(
         // Skip update if values haven't changed significantly
         if (
           prevMetrics.direction === direction &&
-          Math.abs(prevMetrics.dynamics.velocity - dynamicsMetrics.velocity) < 10 &&
-          Math.abs(prevMetrics.dynamics.inertia - dynamicsMetrics.inertia) < 0.05
+          Math.abs(prevMetrics.dynamics.velocity - dynamicsMetrics.velocity) <
+            10 &&
+          Math.abs(prevMetrics.dynamics.inertia - dynamicsMetrics.inertia) <
+            0.05
         ) {
           return prevMetrics;
         }
-        
+
         return {
           ...prevMetrics,
           direction,
@@ -350,7 +352,12 @@ export function useScrollTracker(
       });
     });
     // Memoized handler using stable references to prevent infinite re-renders
-  }, [disabled, dynamics.inertiaDecayTime, dynamics.maxVelocity]);
+  }, [
+    cancelPendingAnimFrame,
+    disabled,
+    dynamics.inertiaDecayTime,
+    dynamics.maxVelocity,
+  ]);
 
   // ===== RESIZE EVENT HANDLER =====
 
@@ -475,14 +482,15 @@ export function useScrollTracker(
       cancelPendingAnimFrame();
     };
   }, [
-    // Dependencies that should trigger observer reset when changed
-    disabled, // Re-setup when enabled/disabled changes
-    rootMargin, // Re-setup if observer margins change
-    thresholds, // Re-setup if threshold points change
-    root, // Re-setup if scroll container changes
-    throttleDelay, // Re-setup if throttling behavior changes
-    // handleIntersection, handleResize, handleScroll and cancelPendingAnimFrame
-    // removed from dependencies since they're stable now using useRef
+    disabled,
+    rootMargin,
+    thresholds,
+    root,
+    throttleDelay,
+    cancelPendingAnimFrame,
+    handleScroll,
+    handleIntersection,
+    handleResize,
   ]);
 
   return { ref: elementRef, metrics };

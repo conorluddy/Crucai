@@ -2,7 +2,7 @@
   "name": "crucai",
   "version": "1.0.0",
   "type": "module",
-  "description": "Crúca - React Hooks",
+  "description": "Crúcai - React Hooks",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
@@ -11,25 +11,38 @@
   ],
   "scripts": {
     "build": "rollup -c",
-    "test": "jest",
-    "test:watch": "jest --watch",
     "lint": "eslint src/**/*.{ts,tsx}",
+    "prepare": "husky",
+    "prettier": "prettier --write .",
+    "test:coverage": "jest --coverage",
+    "test:watch": "jest --watch",
+    "test": "jest",
     "typecheck": "tsc --noEmit",
-    "prepare": "npm run build"
+    "typecoverage:detail": "type-coverage --detail",
+    "typecoverage": "type-coverage"
+  },
+  "typeCoverage": {
+    "atLeast": 95,
+    "ignoreCatch": true,
+    "strict": true,
+    "ignore": [
+      "node_modules/**/*"
+    ]
   },
   "peerDependencies": {
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
   },
   "devDependencies": {
-    "@testing-library/react": "^14.2.1",
     "@testing-library/jest-dom": "^6.4.2",
+    "@testing-library/react": "^14.2.1",
     "@types/jest": "^29.5.12",
     "@types/react": "^18.2.55",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
     "eslint": "^8.56.0",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "husky": "^9.1.7",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "react": "^18.2.0",
@@ -37,6 +50,7 @@
     "rollup": "^4.9.6",
     "rollup-plugin-typescript2": "^0.36.0",
     "ts-jest": "^29.1.2",
+    "type-coverage": "^2.29.7",
     "typescript": "^5.3.3"
   },
   "author": "",

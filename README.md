@@ -1,8 +1,12 @@
 # Crúcai 🪝
 
-> **Crúcai** - Irish for "Hooks" - A modern React hooks library
+> **Crúcai** - Irish for "Hooks" - A React Hooks library
 
 A collection of high-performance, zero-dependency React hooks for building responsive and interactive UIs.
+
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/conorluddy/crucai/ci.yml) [![codecov](https://codecov.io/gh/conorluddy/crucai/branch/main/graph/badge.svg?token=WTHO1C6UL4)](https://codecov.io/gh/conorluddy/crucai) ![Dynamic JSON Badge](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fconorluddy%2Fcrucai%2Fmain%2F.github%2Ftype-coverage.json&query=%24.percentString&suffix=%25&style=flat&logo=typescript&label=TS%20Coverage&color=abff3d)
+ ![Last Commit](https://img.shields.io/github/last-commit/conorluddy/crucai) ![License](https://img.shields.io/github/license/conorluddy/crucai) ![Version](https://img.shields.io/github/package-json/v/conorluddy/crucai) 
+
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![NPM Version](https://img.shields.io/npm/v/crucai.svg)](https://www.npmjs.com/package/crucai)
