@@ -1,15 +1,23 @@
 {
   "name": "@crucai/use-fuzzy-filter",
   "version": "1.0.6",
+  "author": "Conor Luddy",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/conorluddy/Crucai.git"
+  },
   "scripts": {
     "build": "rollup -c",
     "lint": "eslint \"src/**/*.ts\"",
     "prepare": "husky",
     "prettier": "prettier --write .",
+    "publish": "npm publish",
     "test:coverage": "jest --coverage",
     "test:watch": "jest --watch",
     "test": "jest",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "patch": "npm version patch --no-git-tag-version"
   },
   "peerDependencies": {
     "react": ">=16.8.0",
@@ -37,6 +45,9 @@
     "typescript": "^5.3.3"
   },
   "packageManager": "npm@10.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
