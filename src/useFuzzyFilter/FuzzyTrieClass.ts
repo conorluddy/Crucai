@@ -202,9 +202,6 @@ class FuzzyTrie<T> {
               associatedSearchString,
               maxAllowedDistance
             );
-            console.log(
-              `Query: ${normalizedQuery}, Matched String: ${associatedSearchString}, Levenshtein Distance: ${calculatedDistance}`
-            );
 
             // If the distance is within the allowed limit, add the item to the results
             if (calculatedDistance <= maxAllowedDistance) {
@@ -227,13 +224,10 @@ class FuzzyTrie<T> {
     // Start the traversal from the root node with an empty prefix
     traverseTrieNodes(this.rootNode, "");
 
-    console.log("Unsorted search results:", searchResults);
-
     // Sort the matched items by their Levenshtein distance
     const sortedMatchedItems = searchResults
       .sort((a, b) => a.levenshteinDistance - b.levenshteinDistance)
       .map((result) => result.matchedItem);
-    console.log("Sorted matched items:", sortedMatchedItems);
 
     // Return the sorted list of matched items
     return sortedMatchedItems;
