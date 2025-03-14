@@ -11,12 +11,16 @@ A collection of high-performance, zero-dependency React hooks for building respo
 
 ## 📚 Table of Contents
 
-- [Installation](#-installation)
-- [Hooks Overview](#-hooks-overview)
-  - [useScrollTracker](#usescrolltracker)
-  - [useFuzzyFilter](#usefuzzyfilter)
-- [Contributing](#-contributing)
-- [License](#-license)
+- [Crúcai 🪝](#crúcai-)
+  - [📚 Table of Contents](#-table-of-contents)
+  - [🚀 Installation](#-installation)
+  - [🔌 Hooks Overview](#-hooks-overview)
+      - [Key Features:](#key-features)
+      - [Component API:](#component-api)
+      - [Options:](#options)
+      - [Key Features:](#key-features-1)
+      - [Options:](#options-1)
+  - [📝 License](#-license)
 
 ## 🚀 Installation
 
@@ -189,22 +193,10 @@ const { filteredItems, setQuery } = useFuzzyFilter({
 
 </details>
 
-## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
 
 ## 📝 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License
 
----
 
-<div align="center">
-  <sub>Built with ❤️ by contributors</sub>
-</div>
