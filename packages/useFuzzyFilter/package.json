@@ -1,18 +1,9 @@
 {
-  "name": "crucai",
-  "version": "1.0.5",
-  "type": "module",
-  "description": "Crúcai - React Hooks",
-  "main": "dist/index.js",
-  "module": "dist/index.esm.js",
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
+  "name": "@crucai/use-fuzzy-filter",
+  "private": true,
   "scripts": {
-    "build": "turbo run build",
-    "dev": "turbo run dev",
-    "lint": "turbo run lint",
+    "build": "rollup -c",
+    "lint": "eslint \"src/**/*.ts\"",
     "check-types": "tsc --noEmit",
     "prepare": "husky",
     "prettier": "prettier --write .",
@@ -22,21 +13,6 @@
     "typecheck": "tsc --noEmit",
     "typecoverage:detail": "type-coverage --detail",
     "typecoverage": "type-coverage"
-  },
-  "typeCoverage": {
-    "atLeast": 95,
-    "ignoreCatch": true,
-    "strict": true,
-    "ignore": [
-      "node_modules/**/*"
-    ]
-  },
-  "workspaces": [
-    "packages/*"
-  ],
-  "peerDependencies": {
-    "react": ">=18.0.0",
-    "react-dom": ">=18.0.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.4.2",
@@ -59,19 +35,8 @@
     "type-coverage": "^2.29.7",
     "typescript": "^5.3.3"
   },
-  "author": "",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:conorluddy/Crucai.git"
-  },
   "packageManager": "npm@10.0.0",
-  "keywords": [
-    "react",
-    "hooks",
-    "typescript"
-  ],
-  "dependencies": {
-    "@rollup/plugin-typescript": "^12.1.2"
+  "exports": {
+    ".": "./index.ts"
   }
 }
