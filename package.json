@@ -1,6 +1,6 @@
 {
   "name": "crucai",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "type": "module",
   "description": "Crúcai - React Hooks",
   "main": "dist/index.js",
