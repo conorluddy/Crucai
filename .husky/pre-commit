@@ -11,7 +11,10 @@ npx type-coverage --json-output > .github/type-coverage.json
 # Add type coverage output to the commit
 git add .github/type-coverage.json
 
-# Run linting check but don't fail the commit
 echo "Running lint check... 🕵🏼‍♀️"
-npm run lint || echo "Linting reported issues, but continuing with commit"
+npm run lint
 echo "Lint check done ✅"
+
+echo "Running build... 🕵🏼"
+npm run build 
+echo "Build all good ✅"
