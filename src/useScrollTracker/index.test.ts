@@ -12,11 +12,11 @@ import {
 
 // Mock intersection observer
 const mockIntersectionObserver = jest.fn();
-(global as any).IntersectionObserver = mockIntersectionObserver;
+(global as unknown).IntersectionObserver = mockIntersectionObserver;
 
 // Mock resize observer
 const mockResizeObserver = jest.fn();
-(global as any).ResizeObserver = mockResizeObserver;
+(global as unknown).ResizeObserver = mockResizeObserver;
 
 // Mock window properties and methods
 Object.defineProperty(global, 'innerHeight', { value: 800 });
@@ -25,7 +25,7 @@ Object.defineProperty(global, 'innerWidth', { value: 1200 });
 describe('useScrollTracker', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    mockIntersectionObserver.mockImplementation((callback) => {
+    mockIntersectionObserver.mockImplementation(() => {
       return {
         observe: jest.fn(),
         unobserve: jest.fn(),
