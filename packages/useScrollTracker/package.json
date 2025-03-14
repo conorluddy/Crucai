@@ -1,18 +1,19 @@
 {
   "name": "@crucai/use-scroll-tracker",
-  "private": true,
+  "version": "1.0.6",
   "scripts": {
     "build": "rollup -c",
     "lint": "eslint \"src/**/*.ts\"",
-    "check-types": "tsc --noEmit",
     "prepare": "husky",
     "prettier": "prettier --write .",
     "test:coverage": "jest --coverage",
     "test:watch": "jest --watch",
     "test": "jest",
-    "typecheck": "tsc --noEmit",
-    "typecoverage:detail": "type-coverage --detail",
-    "typecoverage": "type-coverage"
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.4.2",
@@ -36,7 +37,18 @@
     "typescript": "^5.3.3"
   },
   "packageManager": "npm@10.0.0",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./index.ts"
-  }
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ]
 }
