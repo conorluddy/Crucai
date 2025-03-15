@@ -1,6 +1,6 @@
 {
   "name": "@crucai/use-fuzzy-filter",
-  "version": "1.0.11",
+  "version": "1.0.14",
   "author": "Conor Luddy",
   "license": "MIT",
   "repository": {
@@ -8,7 +8,7 @@
     "url": "git+ssh://git@github.com/conorluddy/Crucai.git"
   },
   "scripts": {
-    "build": "rollup -c",
+    "build": "tsc --listEmittedFiles",
     "lint": "eslint \"src/**/*.ts\"",
     "prepare": "husky",
     "prettier": "prettier --write .",
@@ -20,8 +20,8 @@
     "patch": "npm version patch --no-git-tag-version"
   },
   "peerDependencies": {
-    "react": ">=16.8.0",
-    "react-dom": ">=16.8.0"
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.4.2",
@@ -37,8 +37,6 @@
     "jest-environment-jsdom": "^29.7.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "rollup": "^4.9.6",
-    "rollup-plugin-typescript2": "^0.36.0",
     "ts-jest": "^29.1.2",
     "turbo": "^2.4.4",
     "type-coverage": "^2.29.7",
