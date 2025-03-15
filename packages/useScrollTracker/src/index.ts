@@ -199,7 +199,7 @@ export function useScrollTracker(
       const position = calculatePositions(
         rect,
         viewportHeight,
-        viewportWidth,
+        // viewportWidth,
         offsetTop,
         offsetBottom
       );
@@ -539,15 +539,15 @@ export interface ScrollTrackerProps extends ScrollTrackerOptions {
  * @param props - ScrollTracker component props including children render function and options
  * @returns Fragment containing the result of the children render function
  */
-export const ScrollTracker: React.FC<ScrollTrackerProps> = ({
-  children,
-  ...options
-}): JSX.Element => {
-  // Apply the useScrollTracker hook with the provided options
-  const { ref, metrics } = useScrollTracker(options);
+// export const ScrollTracker: React.FC<ScrollTrackerProps> = ({
+//   children,
+//   ...options
+// }): JSX.Element => {
+//   // Apply the useScrollTracker hook with the provided options
+//   const { ref, metrics } = useScrollTracker(options);
 
-  // Call the children render function with metrics and ref
-  return React.createElement(React.Fragment, null, children(metrics, ref));
-};
+//   // Call the children render function with metrics and ref
+//   return React.createElement(React.Fragment, null, children(metrics, ref));
+// };
 
 export default useScrollTracker;

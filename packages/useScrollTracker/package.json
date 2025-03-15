@@ -1,6 +1,6 @@
 {
   "name": "@crucai/use-scroll-tracker",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "author": "Conor Luddy",
   "license": "MIT",
   "repository": {
@@ -47,14 +47,11 @@
     "access": "public"
   },
   "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
+  "module": "./dist/index.js",
+  "require": "./dist/cjs/index.js",
   "types": "./dist/types/index.d.ts",
   "exports": {
-    ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/cjs/index.js",
-      "types": "./dist/types/index.d.ts"
-    }
+    ".": "./src/index.ts"
   },
   "files": [
     "dist",
