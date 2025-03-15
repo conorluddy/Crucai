@@ -1,6 +1,6 @@
 {
   "name": "@crucai/use-fuzzy-filter",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "author": "Conor Luddy",
   "license": "MIT",
   "repository": {
@@ -8,7 +8,7 @@
     "url": "git+ssh://git@github.com/conorluddy/Crucai.git"
   },
   "scripts": {
-    "build": "tsc --listEmittedFiles",
+    "build": "tsc -p tsconfig.json && tsc -p tsconfig.cjs.json",
     "lint": "eslint \"src/**/*.ts\"",
     "prepare": "husky",
     "prettier": "prettier --write .",
@@ -48,12 +48,12 @@
   },
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
+  "types": "./dist/types/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/index.mjs",
-      "require": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/cjs/index.js",
+      "types": "./dist/types/index.d.ts"
     }
   },
   "files": [

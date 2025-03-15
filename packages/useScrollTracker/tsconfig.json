@@ -5,16 +5,17 @@
     "lib": ["dom", "esnext"],
     "jsx": "react",
     "declaration": true,
-    "declarationDir": "dist",
+    "declarationDir": "dist/types",
     "strict": true,
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
+    "sourceMap": true,
     "forceConsistentCasingInFileNames": true,
     "outDir": "dist",
     "rootDir": "src"
   },
   "include": ["src"],
-  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.test.tsx"]
+  "exclude": ["node_modules", ".turbo", "dist", "**/*.test.ts", "**/*.test.tsx"]
 }
