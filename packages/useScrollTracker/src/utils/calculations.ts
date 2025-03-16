@@ -11,7 +11,7 @@ import {
  * Calculate visibility metrics from an IntersectionObserver entry
  */
 export function calculateVisibility(
-  entry: IntersectionObserverEntry
+  entry: IntersectionObserverEntry,
 ): VisibilityMetrics {
   // Calculate percentage visible (0-100)
   const percentage = Math.round(entry.intersectionRatio * 100);
@@ -35,7 +35,7 @@ export function calculateVisibility(
 export function calculateDimensions(
   rect: DOMRectReadOnly,
   viewportHeight: number,
-  viewportWidth: number
+  viewportWidth: number,
 ): DimensionMetrics {
   // Check for zero dimensions
   const hasZeroDimensions = rect.height === 0 || rect.width === 0;
@@ -67,7 +67,7 @@ export function calculatePositions(
   viewportHeight: number,
   // viewportWidth: number,
   offsetTop: number = 0,
-  offsetBottom: number = 0
+  offsetBottom: number = 0,
 ): PositionMetrics {
   // Calculate center positions
   const elementCenterY = rect.top + rect.height / 2;
@@ -95,7 +95,7 @@ export function calculatePositions(
   // 1 means element is entirely below viewport top
   const normalizedTop = Math.max(
     -1,
-    Math.min(1, relativeToTopY / (viewportHeight * 0.5))
+    Math.min(1, relativeToTopY / (viewportHeight * 0.5)),
   );
 
   // For normalizedBottom:
@@ -104,7 +104,7 @@ export function calculatePositions(
   // 1 means element is entirely below viewport bottom
   const normalizedBottom = Math.max(
     -1,
-    Math.min(1, relativeToBottomY / (viewportHeight * 0.5))
+    Math.min(1, relativeToBottomY / (viewportHeight * 0.5)),
   );
 
   return {
@@ -122,7 +122,7 @@ export function calculatePositions(
  */
 export function calculateThresholds(
   intersectionRatio: number,
-  thresholdValues: number[]
+  thresholdValues: number[],
 ): ThresholdMetrics {
   // Sort thresholds in ascending order
   const sortedThresholds = [...thresholdValues].sort((a, b) => a - b);
@@ -147,7 +147,7 @@ export function calculateThresholds(
     const maxDistance = 25; // Assume 25 percentage points is the max distance to normalize to -1 or 1
     const normalizedProgress = Math.max(
       -1,
-      Math.min(1, distance / maxDistance)
+      Math.min(1, distance / maxDistance),
     );
 
     // Add to thresholds object
@@ -165,7 +165,7 @@ export function calculateThresholds(
 
     // Find next threshold
     const nextThresholds = sortedThresholds.filter(
-      (t) => t > (thresholds.active || 0)
+      (t) => t > (thresholds.active || 0),
     );
     thresholds.next =
       nextThresholds.length > 0 ? Math.min(...nextThresholds) : null;
@@ -188,7 +188,7 @@ export function calculateDynamics(
   previousVelocity: number,
   previousInertia: number,
   inertiaDecayTime: number = 300,
-  maxExpectedVelocity: number = 1000
+  maxExpectedVelocity: number = 1000,
 ): DynamicsMetrics {
   // Calculate time delta, ensuring it's at least 1ms to avoid division by zero
   const timeDelta = Math.max(1, currentTime - previousTime);
@@ -205,7 +205,7 @@ export function calculateDynamics(
   const isScrolling = timeSinceLastScroll < 50; // Consider scrolling stopped after 50ms
   const inertiaDecayFactor = Math.min(
     1,
-    timeSinceLastScroll / inertiaDecayTime
+    timeSinceLastScroll / inertiaDecayTime,
   );
   const inertia = isScrolling
     ? 1
@@ -233,7 +233,7 @@ export function calculateEntryMetrics(
   wasInViewport: boolean,
   currentDirection: "up" | "down" | null,
   previousEntry: EntryMetrics,
-  currentTime: number
+  currentTime: number,
 ): EntryMetrics {
   const result = { ...previousEntry };
 
@@ -267,7 +267,7 @@ export function cubicBezier(
   y1: number,
   x2: number,
   y2: number,
-  t: number
+  t: number,
 ): number {
   // Cubic Bezier function with control points (0,0), (x1,y1), (x2,y2), (1,1)
   const cx = 3 * x1;
@@ -297,7 +297,7 @@ export function cubicBezier(
  */
 export function detectDirection(
   currentScrollY: number,
-  previousScrollY: number
+  previousScrollY: number,
 ): "up" | "down" | null {
   if (currentScrollY === previousScrollY) return null;
   return currentScrollY > previousScrollY ? "down" : "up";
@@ -308,7 +308,7 @@ export function detectDirection(
  */
 export function getDefaultEntryDirection(
   rect: DOMRectReadOnly,
-  viewportHeight: number
+  viewportHeight: number,
 ): "top" | "bottom" {
   const elementMiddle = rect.top + rect.height / 2;
   const viewportMiddle = viewportHeight / 2;

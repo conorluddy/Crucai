@@ -63,7 +63,7 @@ import { initialMetricsState } from "./utils/initialState";
  * @returns Object containing a ref to attach to the element and metrics about its scroll position
  */
 export function useScrollTracker(
-  options: ScrollTrackerOptions = {}
+  options: ScrollTrackerOptions = {},
 ): ScrollTrackerResult {
   // Merge provided options with defaults for a complete configuration
   const {
@@ -182,7 +182,7 @@ export function useScrollTracker(
       const currentScrollY = window.scrollY;
       const direction = detectDirection(
         currentScrollY,
-        previousScrollY.current
+        previousScrollY.current,
       );
       previousScrollY.current = currentScrollY;
 
@@ -194,18 +194,18 @@ export function useScrollTracker(
       const dimensions = calculateDimensions(
         rect,
         viewportHeight,
-        viewportWidth
+        viewportWidth,
       );
       const position = calculatePositions(
         rect,
         viewportHeight,
         // viewportWidth,
         offsetTop,
-        offsetBottom
+        offsetBottom,
       );
       const thresholdsMetrics = calculateThresholds(
         entry.intersectionRatio,
-        thresholds
+        thresholds,
       );
 
       // Calculate dynamics
@@ -218,7 +218,7 @@ export function useScrollTracker(
         previousVelocity.current,
         previousInertia.current,
         dynamics.inertiaDecayTime,
-        dynamics.maxVelocity
+        dynamics.maxVelocity,
       );
 
       // Update refs for next dynamics calculation
@@ -232,7 +232,7 @@ export function useScrollTracker(
         wasInViewport,
         direction,
         entryMetricsRef.current,
-        now
+        now,
       );
 
       // Update entry metrics ref
@@ -274,7 +274,7 @@ export function useScrollTracker(
       thresholds,
       dynamics.inertiaDecayTime,
       dynamics.maxVelocity,
-    ]
+    ],
   );
 
   // ===== SCROLL EVENT HANDLER =====
@@ -305,7 +305,7 @@ export function useScrollTracker(
       const currentScrollY = window.scrollY;
       const direction = detectDirection(
         currentScrollY,
-        previousScrollY.current
+        previousScrollY.current,
       );
 
       // Get current timestamp for timing calculations
@@ -321,7 +321,7 @@ export function useScrollTracker(
         previousVelocity.current,
         previousInertia.current,
         dynamics.inertiaDecayTime,
-        dynamics.maxVelocity
+        dynamics.maxVelocity,
       );
 
       // Store current values for next calculation
@@ -394,7 +394,7 @@ export function useScrollTracker(
           intersectionObserver.current?.observe(elementRef.current);
         }
       }, 100);
-    }, 200)
+    }, 200),
   ).current;
 
   // ===== SETUP AND CLEANUP EFFECT =====
@@ -437,7 +437,7 @@ export function useScrollTracker(
 
           // Set custom scroll container if provided, otherwise use viewport
           root: root?.current || null,
-        }
+        },
       );
 
       // Start observing the target element
@@ -513,7 +513,7 @@ export interface ScrollTrackerProps extends ScrollTrackerOptions {
    */
   children: (
     metrics: ScrollMetrics,
-    ref: React.RefObject<HTMLElement>
+    ref: React.RefObject<HTMLElement>,
   ) => React.ReactNode;
 }
 

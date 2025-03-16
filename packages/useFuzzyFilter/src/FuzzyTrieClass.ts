@@ -87,7 +87,7 @@ class FuzzyTrie<T> {
   private calculateLevenshteinDistance(
     firstString: string,
     secondString: string,
-    maxAllowedDistance: number = Infinity
+    maxAllowedDistance: number = Infinity,
   ): number {
     if (firstString === secondString) return 0;
     if (firstString.length > secondString.length)
@@ -131,12 +131,12 @@ class FuzzyTrie<T> {
         currentDistanceRow[compareIndex] = Math.min(
           insertionCost,
           deletionCost,
-          substitutionOrMatchCost
+          substitutionOrMatchCost,
         );
         // Update the minimum distance in the row
         minimumDistanceInRow = Math.min(
           minimumDistanceInRow,
-          currentDistanceRow[compareIndex]
+          currentDistanceRow[compareIndex],
         );
       }
 
@@ -190,7 +190,7 @@ class FuzzyTrie<T> {
     // Helper function to traverse the Trie nodes
     const traverseTrieNodes = (
       currentNode: TrieNode<T>,
-      currentPrefix: string
+      currentPrefix: string,
     ) => {
       // If the current node represents a complete word, check its associated items
       if (currentNode.isCompleteWord) {
@@ -200,7 +200,7 @@ class FuzzyTrie<T> {
             const calculatedDistance = this.calculateLevenshteinDistance(
               normalizedQuery,
               associatedSearchString,
-              maxAllowedDistance
+              maxAllowedDistance,
             );
 
             // If the distance is within the allowed limit, add the item to the results
@@ -211,7 +211,7 @@ class FuzzyTrie<T> {
                 matchedSearchString: associatedSearchString,
               });
             }
-          }
+          },
         );
       }
 

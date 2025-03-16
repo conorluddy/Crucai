@@ -48,7 +48,7 @@ function useFuzzyFilter<T>({
 
         setSuggestions(results);
       }, debounceMs),
-    [minSearchLength, maxDistance, maxResults, debounceMs]
+    [minSearchLength, maxDistance, maxResults, debounceMs],
   );
 
   return { search, suggestions };
@@ -56,7 +56,7 @@ function useFuzzyFilter<T>({
 
 function debounce<T extends unknown[]>(
   func: (...args: T) => void,
-  delay: number
+  delay: number,
 ): (...args: T) => void {
   let timer: NodeJS.Timeout | undefined;
   return (...args: T) => {

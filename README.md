@@ -6,11 +6,10 @@ A collection of high-performance, zero-dependency (except for React), React hook
 
 This is a [Turborepo](https://turbo.build/repo/docs) managed monorepo, with hooks as independent packages published to NPM.
 
------
+---
 
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/conorluddy/crucai/ci.yml) [![codecov](https://codecov.io/gh/conorluddy/crucai/branch/main/graph/badge.svg?token=WTHO1C6UL4)](https://codecov.io/gh/conorluddy/crucai) ![Dynamic JSON Badge](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fconorluddy%2Fcrucai%2Fmain%2F.github%2Ftype-coverage.json&query=%24.percentString&suffix=%25&style=flat&logo=typescript&label=TS%20Coverage&color=abff3d)
- ![Last Commit](https://img.shields.io/github/last-commit/conorluddy/crucai) ![Version](https://img.shields.io/github/package-json/v/conorluddy/crucai) 
-
+![Last Commit](https://img.shields.io/github/last-commit/conorluddy/crucai) ![Version](https://img.shields.io/github/package-json/v/conorluddy/crucai)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![NPM Version](https://img.shields.io/npm/v/crucai.svg)](https://www.npmjs.com/package/crucai)
@@ -23,11 +22,11 @@ This is a [Turborepo](https://turbo.build/repo/docs) managed monorepo, with hook
   - [📚 Table of Contents](#-table-of-contents)
   - [🚀 Installation](#-installation)
   - [🔌 Hooks Overview](#-hooks-overview)
-      - [Key Features:](#key-features)
-      - [Component API:](#component-api)
-      - [Options:](#options)
-      - [Key Features:](#key-features-1)
-      - [Options:](#options-1)
+    - [Key Features:](#key-features)
+    - [Component API:](#component-api)
+    - [Options:](#options)
+    - [Key Features:](#key-features-1)
+    - [Options:](#options-1)
   - [📝 License](#-license)
 
 ## 🚀 Installation
@@ -48,7 +47,6 @@ npm install @crucai/use-fuzzy-filter
 ...
 ```
 
-
 ## 🔌 Hooks Overview
 
 <details>
@@ -61,11 +59,11 @@ import { useScrollTracker } from "crucai";
 
 function FadeInElement() {
   const { ref, metrics } = useScrollTracker();
-  
+
   return (
-    <div 
+    <div
       ref={ref}
-      style={{ 
+      style={{
         opacity: metrics.visibility.percentage / 100,
         transform: `translateY(${(1 - metrics.visibility.percentage / 100) * 20}px)`,
       }}
@@ -97,9 +95,9 @@ function AnimatedElement() {
   return (
     <ScrollTracker>
       {(metrics, ref) => (
-        <div 
+        <div
           ref={ref}
-          style={{ 
+          style={{
             opacity: metrics.visibility.percentage / 100,
           }}
         >
@@ -117,26 +115,26 @@ function AnimatedElement() {
 const { ref, metrics } = useScrollTracker({
   // Visibility thresholds to track (0-100)
   thresholds: [0, 25, 50, 75, 100],
-  
+
   // Offset from top/bottom of viewport (e.g., for fixed headers/footers)
   offsetTop: 0,
   offsetBottom: 0,
-  
+
   // Custom scroll container instead of window
   root: containerRef,
-  
+
   // Other options for fine-tuning
   rootMargin: "0px 0px 0px 0px",
   disabled: false,
   throttleDelay: 0,
-  
+
   // Physics-based animation control
   dynamics: {
     inertiaDecayTime: 300,
     maxVelocity: 1000,
     easing: "easeInOut",
-    customEasingPoints: [0.33, 1, 0.68, 1]
-  }
+    customEasingPoints: [0.33, 1, 0.68, 1],
+  },
 });
 ```
 
@@ -157,13 +155,13 @@ function SearchableList({ items }) {
     items,
     threshold: 2, // Max Levenshtein distance
   });
-  
+
   return (
     <div>
-      <input 
+      <input
         type="text"
-        onChange={(e) => setQuery(e.target.value)} 
-        placeholder="Search items..." 
+        onChange={(e) => setQuery(e.target.value)}
+        placeholder="Search items..."
       />
       <ul>
         {filteredItems.map((item, index) => (
@@ -187,22 +185,22 @@ function SearchableList({ items }) {
 ```tsx
 const { filteredItems, setQuery } = useFuzzyFilter({
   // Items to filter (strings or objects)
-  items: ['apple', 'banana', 'orange'],
-  
+  items: ["apple", "banana", "orange"],
+
   // If items are objects, specify which keys to search in
-  keys: ['name', 'description'],
-  
+  keys: ["name", "description"],
+
   // Maximum Levenshtein distance for a match (default: 2)
   threshold: 2,
-  
+
   // Initial search query (optional)
-  initialQuery: '',
-  
+  initialQuery: "",
+
   // Whether to match entire query or individual words (default: false)
   matchByWord: true,
-  
+
   // Sort results by relevance (default: true)
-  sortResults: true
+  sortResults: true,
 });
 ```
 
@@ -210,10 +208,6 @@ const { filteredItems, setQuery } = useFuzzyFilter({
 
 </details>
 
-
-
 ## 📝 License
 
 This project is licensed under the MIT License
-
-

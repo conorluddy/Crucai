@@ -24,19 +24,19 @@ yarn add @crucai/use-scroll-tracker
 ## Basic Usage
 
 ```jsx
-import React from 'react';
-import { useScrollTracker } from '@crucai/use-scroll-tracker';
+import React from "react";
+import { useScrollTracker } from "@crucai/use-scroll-tracker";
 
 function MyComponent() {
   const containerRef = React.useRef(null);
   const metrics = useScrollTracker(containerRef);
-  
+
   return (
-    <div 
+    <div
       ref={containerRef}
       style={{
         opacity: metrics.percentVisible,
-        transform: `translateY(${(1 - metrics.percentVisible) * 20}px)`
+        transform: `translateY(${(1 - metrics.percentVisible) * 20}px)`,
       }}
     >
       <p>Visibility: {Math.round(metrics.percentVisible * 100)}%</p>
@@ -51,17 +51,17 @@ function MyComponent() {
 The package also provides a component version using render props for a declarative approach:
 
 ```jsx
-import { ScrollTracker } from '@crucai/use-scroll-tracker';
+import { ScrollTracker } from "@crucai/use-scroll-tracker";
 
 function MyComponent() {
   return (
     <ScrollTracker>
       {(metrics, ref) => (
-        <div 
+        <div
           ref={ref}
           style={{
             opacity: metrics.percentVisible,
-            transform: `translateY(${(1 - metrics.percentVisible) * 20}px)`
+            transform: `translateY(${(1 - metrics.percentVisible) * 20}px)`,
           }}
         >
           <p>Visibility: {Math.round(metrics.percentVisible * 100)}%</p>
@@ -82,24 +82,24 @@ The hook returns a metrics object with the following properties:
   isVisible: boolean;              // Is element at least partially visible
   isFullyVisible: boolean;         // Is element 100% visible
   percentVisible: number;          // 0-1 value of visibility percentage
-  
+
   // Position metrics
   positionRelativeToViewport: 'above' | 'inView' | 'below';  // General position
   distanceFromViewportTop: number;    // Pixels from top of viewport
   distanceFromViewportCenter: number; // Pixels from center of viewport
   distanceFromViewportBottom: number; // Pixels from bottom of viewport
-  
+
   // Threshold metrics
   thresholdsPassed: string[];      // Array of passed threshold names
-  
+
   // Direction metrics
   scrollDirection: 'up' | 'down' | null;  // Current scroll direction
-  
+
   // Physics metrics
   scrollVelocity: number;          // Pixels per second
   scrollAcceleration: number;      // Change in velocity
   scrollInertia: number;           // Weighted historical velocity
-  
+
   // Entry/Exit metrics
   entryDirection: 'top' | 'bottom' | null;  // Direction element entered viewport
   exitDirection: 'top' | 'bottom' | null;   // Direction element exited viewport
@@ -112,9 +112,9 @@ The hook returns a metrics object with the following properties:
 ```typescript
 useScrollTracker(ref, {
   // Optional configuration
-  thresholds: [0.25, 0.5, 0.75],   // Visibility thresholds to track
-  throttleMs: 100,                 // Event throttling in milliseconds
-  disabled: false,                 // Disable tracking when not needed
+  thresholds: [0.25, 0.5, 0.75], // Visibility thresholds to track
+  throttleMs: 100, // Event throttling in milliseconds
+  disabled: false, // Disable tracking when not needed
 });
 ```
 
@@ -126,6 +126,7 @@ useScrollTracker(ref, {
 ## Performance Considerations
 
 This hook is optimized for performance through:
+
 - Using efficient browser APIs instead of scroll event listeners
 - Throttling calculations to prevent excessive re-renders
 - Only tracking elements when they're near the viewport
@@ -143,5 +144,3 @@ For advanced examples and implementation details, please refer to:
 ## License
 
 MIT
-
-
