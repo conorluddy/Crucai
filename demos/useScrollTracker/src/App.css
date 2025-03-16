@@ -34,3 +34,10 @@ body {
   max-height: 100vh;
   overflow: scroll;
 }
+
+.perspective {
+  display: block;
+  background-color: #444;
+  width: 400px;
+  height: 200px;
+}
