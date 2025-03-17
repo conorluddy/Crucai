@@ -40,4 +40,5 @@ body {
   background-color: #444;
   width: 400px;
   height: 200px;
+  transition: transform 200ms ease;
 }

@@ -4,16 +4,12 @@ import useScrollTracker from "@crucai/use-scroll-tracker";
 import "./App.css";
 
 function App() {
-  const { ref: logoRef, metrics } = useScrollTracker({
-    dynamics: {
-      inertiaDecayTime: 3000,
-    },
-  });
+  const { ref: logoRef, metrics } = useScrollTracker();
 
   const tiltAmount =
     metrics.direction === "down" ? 45 : metrics.direction === "up" ? -45 : 0;
 
-  console.log("TODO: fix infinite render");
+  console.log("RNDR");
 
   return (
     <>
@@ -37,6 +33,7 @@ function App() {
         className="perspective"
         style={{
           transform: `perspective(1000px) rotateX(${tiltAmount}deg)`,
+          opacity: metrics.visibility.percentage / 100,
         }}
       >
         XX

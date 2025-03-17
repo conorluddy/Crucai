@@ -399,9 +399,12 @@ export class ScrollTracker {
  * @returns ScrollTracker instance
  */
 export function createScrollTracker(
-  element: HTMLElement,
+  element: HTMLElement | null,
   options: ScrollTrackerOptions = {}
-): ScrollTracker {
+): ScrollTracker | null {
+  console.log("createScrollTracker", element);
+
+  if (!element) return null;
   return new ScrollTracker(element, options);
 }
 
