@@ -61,6 +61,8 @@ export class ScrollTracker {
   private metrics: ScrollMetrics = initialMetricsState;
   private updateCallbacks: Callback[] = [];
 
+  private lastRect: DOMRect | null = null;
+
   // Browser API instances
   private intersectionObserver: IntersectionObserver | null = null;
   private resizeObserver: ResizeObserver | null = null;
@@ -277,6 +279,8 @@ export class ScrollTracker {
     // Update entry metrics
     this.entryMetrics = entryMetrics;
 
+    this.lastRect = entry.boundingClientRect;
+
     // Update metrics
     const newMetrics = {
       visibility,
@@ -318,6 +322,47 @@ export class ScrollTracker {
       const currentScrollY = window.scrollY;
       const direction = detectDirection(currentScrollY, this.previousScrollY);
 
+      // Get viewport dimensions
+      const viewportHeight = window.innerHeight;
+      // const viewportWidth = window.innerWidth;
+
+      // Calculate relative rect based on last known position and current scroll
+      const scrollDelta = currentScrollY - this.previousScrollY;
+      const updatedRect = this.lastRect
+        ? new DOMRect(
+            this.lastRect.x,
+            this.lastRect.y - scrollDelta,
+            this.lastRect.width,
+            this.lastRect.height
+          )
+        : new DOMRect();
+
+      // Calculate all metrics using the updated rect position
+      const position = calculatePositions(
+        updatedRect,
+        viewportHeight,
+        this.options.offsetTop ?? 0,
+        this.options.offsetBottom
+      );
+
+      // Calculate a rough estimate of visibility (this is an approximation)
+      // For more accuracy you'd need to create a synthetic IntersectionObserverEntry
+      const visibleHeight =
+        Math.min(updatedRect.bottom, viewportHeight) -
+        Math.max(updatedRect.top, 0);
+      const visiblePercentage = Math.max(
+        0,
+        Math.min(100, (visibleHeight / updatedRect.height) * 100)
+      );
+
+      const visibility = {
+        ...this.metrics.visibility,
+        percentage: visiblePercentage,
+        isFullyVisible: visiblePercentage === 100,
+        isPartiallyVisible: visiblePercentage > 0 && visiblePercentage < 100,
+        isNotVisible: visiblePercentage === 0,
+      };
+
       // Get current timestamp
       const now = performance.now();
 
@@ -333,12 +378,22 @@ export class ScrollTracker {
         this.options.dynamics?.maxVelocity
       );
 
+      // Update metrics
+      this.metrics = {
+        ...this.metrics,
+        visibility,
+        position,
+        direction,
+        dynamics: dynamicsMetrics,
+      };
+
       // Store current values for next calculation
       this.previousScrollY = currentScrollY;
       this.previousScrollTime = now;
       this.previousVelocity = dynamicsMetrics.velocity;
       this.previousInertia = dynamicsMetrics.inertia;
 
+      this.notifyUpdateCallbacks();
       // Check if metrics have significantly changed
       if (
         this.metrics.direction !== direction ||
@@ -380,6 +435,7 @@ export class ScrollTracker {
    * Notify all registered callbacks with current metrics
    */
   private notifyUpdateCallbacks(): void {
+    console.log("xxxx notifyUpdateCallbacks");
     this.updateCallbacks.forEach((callback) => callback(this.metrics));
   }
 

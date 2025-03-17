@@ -4,7 +4,7 @@ import useScrollTracker from "@crucai/use-scroll-tracker";
 import "./App.css";
 
 function App() {
-  const { ref: logoRef, metrics } = useScrollTracker();
+  const { ref, metrics } = useScrollTracker();
 
   const tiltAmount = useMemo(
     () =>
@@ -12,14 +12,12 @@ function App() {
     [metrics.direction]
   );
 
-  console.log({ metrics: metrics.visibility.isFullyVisible });
-
   return (
     <>
-      <div>
+      VIS:{metrics.visibility?.percentage}%
+      <div ref={ref as Ref<HTMLDivElement>}>
         <a href="https://react.dev" target="_blank">
           <img
-            ref={logoRef as Ref<HTMLImageElement>}
             src={reactLogo}
             className="logo react"
             alt="React logo"
@@ -29,9 +27,7 @@ function App() {
           />
         </a>
       </div>
-
       <h1>useScrollTracker</h1>
-
       <div
         className="perspective"
         style={{
@@ -41,8 +37,8 @@ function App() {
       >
         XX
       </div>
-
       <pre>{metrics.direction ?? "stopped"}</pre>
+      VIS:{metrics.visibility?.percentage}%
     </>
   );
 }

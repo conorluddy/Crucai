@@ -48,27 +48,27 @@ import { initialMetricsState } from "./utils/initialState";
 export function useScrollTracker(
   options: ScrollTrackerOptions = {}
 ): ScrollTrackerResult {
-  const ref = useRef<HTMLElement>(null);
+  const elementRef = useRef<HTMLElement>(null);
   const trackerRef = useRef<ScrollTracker | null>(null);
-
   const [metrics, setMetrics] = useState<ScrollMetrics>(initialMetricsState);
 
   useEffect(() => {
-    if (!ref.current) return;
+    if (!elementRef.current) return;
+    trackerRef.current = createScrollTracker(elementRef.current, options);
 
-    trackerRef.current = createScrollTracker(ref.current, options);
-
-    trackerRef.current?.onUpdate((newMetrics) => {
+    const upUpdateTeardownFn = trackerRef.current?.onUpdate((newMetrics) => {
       setMetrics(newMetrics);
     });
 
     return () => {
+      upUpdateTeardownFn?.();
       trackerRef.current?.destroy();
       trackerRef.current = null;
     };
-  }, []); // Re-run if options or ref.current changes
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  return { ref, metrics };
+  return { ref: elementRef, metrics };
 }
 
 /**
