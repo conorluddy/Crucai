@@ -1,4 +1,4 @@
-import { Ref } from "react";
+import { Ref, useMemo } from "react";
 import reactLogo from "./assets/react.svg";
 import useScrollTracker from "@crucai/use-scroll-tracker";
 import "./App.css";
@@ -6,10 +6,13 @@ import "./App.css";
 function App() {
   const { ref: logoRef, metrics } = useScrollTracker();
 
-  const tiltAmount =
-    metrics.direction === "down" ? 45 : metrics.direction === "up" ? -45 : 0;
+  const tiltAmount = useMemo(
+    () =>
+      metrics.direction === "down" ? 45 : metrics.direction === "up" ? -45 : 0,
+    [metrics.direction]
+  );
 
-  console.log("RNDR");
+  console.log({ metrics: metrics.visibility.isFullyVisible });
 
   return (
     <>
@@ -21,7 +24,7 @@ function App() {
             className="logo react"
             alt="React logo"
             style={{
-              transform: `rotate(${metrics.position.relativeToCenterY * 1}deg)`,
+              transform: `rotate(${metrics.position.relativeToCenterY}deg)`,
             }}
           />
         </a>

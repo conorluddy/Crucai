@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { createScrollTracker } from "./ScrollTracker";
+import ScrollTracker, { createScrollTracker } from "./ScrollTracker";
 import {
   ScrollMetrics,
   ScrollTrackerOptions,
@@ -49,22 +49,24 @@ export function useScrollTracker(
   options: ScrollTrackerOptions = {}
 ): ScrollTrackerResult {
   const ref = useRef<HTMLElement>(null);
+  const trackerRef = useRef<ScrollTracker | null>(null);
 
   const [metrics, setMetrics] = useState<ScrollMetrics>(initialMetricsState);
 
   useEffect(() => {
     if (!ref.current) return;
 
-    const tracker = createScrollTracker(ref.current, options);
+    trackerRef.current = createScrollTracker(ref.current, options);
 
-    tracker?.onUpdate(() => setMetrics(tracker.getMetrics()));
+    trackerRef.current?.onUpdate((newMetrics) => {
+      setMetrics(newMetrics);
+    });
 
     return () => {
-      tracker?.destroy();
+      trackerRef.current?.destroy();
+      trackerRef.current = null;
     };
-  }, [options]);
-
-  console.log("ref", ref);
+  }, []); // Re-run if options or ref.current changes
 
   return { ref, metrics };
 }
